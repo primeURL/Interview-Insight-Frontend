@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TestComponents from '../components/TestComponents';
+---
+
+<BaseLayout
+  title="Component Test"
+  description="Testing shadcn/ui components"
+>
+  <div class="container mx-auto py-12">
+    <TestComponents client:load />
+  </div>
+</BaseLayout>

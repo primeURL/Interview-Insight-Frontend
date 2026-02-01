@@ -1,0 +1,216 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { InterviewPrepErrorDisplay } from "@/components/forms/InterviewPrepErrorDisplay";
+
+const title = "Error Display Demo";
+const description = "Demo page for the Interview Prep Error Display component";
+---
+
+<BaseLayout title={title} description={description}>
+  <main class="container mx-auto px-4 py-8 sm:py-12 lg:py-16">
+    <div class="max-w-6xl mx-auto space-y-8">
+      <div class="text-center space-y-2">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold">
+          Error Display Component Demo
+        </h1>
+        <p class="text-muted-foreground text-sm sm:text-base">
+          Examples of different error scenarios
+        </p>
+      </div>
+
+      <div class="space-y-12">
+        <!-- Example 1: Profile Not Accessible -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            1. Profile Not Accessible Error
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "PROFILE_NOT_ACCESSIBLE",
+              message:
+                "LinkedIn profile not accessible. Please verify the URL and profile privacy settings.",
+              details: "The profile may be private or the URL may be incorrect.",
+              retry_allowed: true,
+            }}
+            preservedInput={{
+              interviewer_details: {
+                linkedin_url: "https://www.linkedin.com/in/john-doe",
+                about: "Senior engineer with 10 years experience",
+                mock: false,
+              },
+              candidate_details: {
+                position: "Software Engineer",
+                skills: "React, Node.js, Python, AWS",
+                experience: "3.6",
+              },
+            }}
+            onRetry={() => alert("Retry clicked!")}
+          />
+        </section>
+
+        <!-- Example 2: Rate Limited -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            2. Rate Limit Error
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "RATE_LIMITED",
+              message:
+                "Temporarily unable to access LinkedIn. Please try again in a few minutes.",
+              details:
+                "We've made too many requests to LinkedIn. Please wait before trying again.",
+              retry_allowed: true,
+            }}
+            preservedInput={{
+              interviewer_details: {
+                linkedin_url: "https://www.linkedin.com/in/jane-smith",
+              },
+              candidate_details: {
+                position: "Senior Backend Engineer",
+                skills: "Python, Django, PostgreSQL, Redis",
+                experience: "5",
+              },
+            }}
+            onRetry={() => alert("Retry clicked!")}
+          />
+        </section>
+
+        <!-- Example 3: Invalid URL -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            3. Invalid URL Error
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "INVALID_URL",
+              message:
+                "Please enter a valid LinkedIn profile URL in the format: https://www.linkedin.com/in/username",
+              retry_allowed: true,
+            }}
+            preservedInput={{
+              interviewer_details: {
+                linkedin_url: "not-a-valid-url",
+              },
+              candidate_details: {
+                position: "Frontend Developer",
+                skills: "React, TypeScript, Tailwind CSS",
+                experience: "fresher",
+              },
+            }}
+            onRetry={() => alert("Retry clicked!")}
+          />
+        </section>
+
+        <!-- Example 4: Network Error -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            4. Network Error
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "NETWORK_ERROR",
+              message:
+                "Connection issue detected. Please check your internet connection and retry.",
+              details: "Unable to reach the server. Error code: ECONNREFUSED",
+              retry_allowed: true,
+            }}
+            preservedInput={{
+              interviewer_details: {
+                linkedin_url: "https://www.linkedin.com/in/alex-johnson",
+                mock: true,
+              },
+              candidate_details: {
+                position: "Full Stack Developer",
+                skills: "JavaScript, React, Node.js, MongoDB",
+                experience: "2",
+              },
+            }}
+            onRetry={() => alert("Retry clicked!")}
+          />
+        </section>
+
+        <!-- Example 5: Generation Error (No Retry) -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            5. Generation Error (No Retry Allowed)
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "GENERATION_ERROR",
+              message:
+                "Unable to generate questions. Please try again or contact support if the issue persists.",
+              details: "Internal error during question generation process.",
+              retry_allowed: false,
+            }}
+            preservedInput={{
+              interviewer_details: {
+                linkedin_url: "https://www.linkedin.com/in/sarah-williams",
+              },
+              candidate_details: {
+                position: "DevOps Engineer",
+                skills: "Docker, Kubernetes, AWS, Terraform",
+                experience: "4.5",
+              },
+            }}
+          />
+        </section>
+
+        <!-- Example 6: Error without Preserved Input -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            6. Error Without Preserved Input
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "INTERNAL_ERROR",
+              message:
+                "An unexpected error occurred. Please try again later.",
+              retry_allowed: true,
+            }}
+            onRetry={() => alert("Retry clicked!")}
+          />
+        </section>
+
+        <!-- Example 7: Mobile Responsive Test -->
+        <section class="space-y-4">
+          <h2 class="text-xl sm:text-2xl font-semibold">
+            7. Long Content (Mobile Responsive Test)
+          </h2>
+          <InterviewPrepErrorDisplay
+            client:load
+            error={{
+              code: "SCRAPING_ERROR",
+              message:
+                "Failed to extract profile information from LinkedIn. This could be due to changes in LinkedIn's page structure or temporary access issues.",
+              details:
+                "Technical details: Unable to parse experience section. The HTML structure may have changed. Error occurred at selector: div.experience-section > ul.pvs-list",
+              retry_allowed: true,
+            }}
+            preservedInput={{
+              interviewer_details: {
+                linkedin_url:
+                  "https://www.linkedin.com/in/very-long-username-that-might-wrap-on-mobile-devices",
+                about:
+                  "This is a very long about section that contains multiple sentences and should wrap properly on mobile devices. It includes information about the interviewer's background, expertise, and areas of interest. The text should remain readable across all screen sizes.",
+              },
+              candidate_details: {
+                position: "Senior Software Engineer - Full Stack Development",
+                skills:
+                  "React, Vue.js, Angular, Node.js, Express, Python, Django, Flask, PostgreSQL, MongoDB, Redis, Docker, Kubernetes, AWS, Azure, GCP, CI/CD, Jest, Cypress",
+                experience: "7.5",
+              },
+            }}
+            onRetry={() => alert("Retry clicked!")}
+          />
+        </section>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

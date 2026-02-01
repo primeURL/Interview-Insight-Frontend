@@ -1,0 +1,111 @@
+---
+import MarketingLayout from '@/layouts/MarketingLayout.astro';
+import { InterviewResultsDisplay } from '@/components/forms/InterviewResultsDisplay';
+import { siteConfig } from '@/config';
+
+const title = 'Interview Results Demo';
+const description = 'Demo page showing the interview results display component';
+
+// Sample data matching the API response format
+const sampleQuestions = [
+  {
+    set_type: "interviewer_experience",
+    category: "Performance",
+    difficulty: "Hard",
+    question: "How would you optimize a React application that's experiencing performance issues with frequent re-renders?",
+    why_this_question: "Based on the interviewer's experience with React at Meta, they likely value deep understanding of React's rendering optimization techniques.",
+    expected_depth: "Discuss React.memo, useMemo, useCallback, virtualization, code splitting, and profiling tools. Provide specific examples of when each technique is appropriate.",
+    follow_ups: [
+      "Can you explain the difference between React.memo and useMemo?",
+      "How would you identify which components are causing performance bottlenecks?",
+      "What are some common anti-patterns that lead to unnecessary re-renders?"
+    ]
+  },
+  {
+    set_type: "candidate_skills",
+    category: "System Design",
+    difficulty: "Medium",
+    question: "Design a scalable microservices architecture for an e-commerce platform handling millions of requests per day.",
+    why_this_question: "Your listed skills include AWS and system design, which are crucial for this senior position.",
+    expected_depth: "Cover service decomposition, API gateway patterns, database strategies, caching layers, message queues, and monitoring. Discuss trade-offs between consistency and availability.",
+    follow_ups: [
+      "How would you handle distributed transactions across services?",
+      "What caching strategy would you implement?",
+      "How would you ensure data consistency?"
+    ]
+  },
+  {
+    set_type: "role_specific",
+    category: "Architecture",
+    difficulty: "Hard",
+    question: "Explain your approach to migrating a monolithic application to microservices without causing downtime.",
+    why_this_question: "This position requires experience with large-scale system migrations and architectural decisions.",
+    expected_depth: "Discuss strangler fig pattern, feature flags, database decomposition strategies, API versioning, rollback plans, and monitoring during migration.",
+    follow_ups: [
+      "How would you handle shared database dependencies?",
+      "What metrics would you track during the migration?",
+      "How would you ensure backward compatibility?"
+    ]
+  },
+  {
+    set_type: "interviewer_experience",
+    category: "Leadership",
+    difficulty: "Medium",
+    question: "Describe a situation where you had to make a technical decision that your team disagreed with. How did you handle it?",
+    why_this_question: "Given the interviewer's senior role, they'll want to assess your leadership and communication skills.",
+    expected_depth: "Provide a specific example demonstrating data-driven decision making, stakeholder communication, and ability to build consensus while maintaining technical standards.",
+    follow_ups: [
+      "What was the outcome of that decision?",
+      "How did you communicate the rationale to your team?",
+      "Would you make the same decision again?"
+    ]
+  },
+  {
+    set_type: "candidate_skills",
+    category: "Machine Learning",
+    difficulty: "Easy",
+    question: "What are the key differences between supervised and unsupervised learning? Provide examples of when you'd use each.",
+    why_this_question: "Your profile mentions LLMs, so understanding fundamental ML concepts is important.",
+    expected_depth: "Explain labeled vs unlabeled data, common algorithms for each, and real-world use cases. Mention clustering, classification, and regression.",
+    follow_ups: [
+      "Can you explain what semi-supervised learning is?",
+      "What evaluation metrics would you use for each type?"
+    ]
+  },
+  {
+    set_type: "role_specific",
+    category: "Cloud Infrastructure",
+    difficulty: "Medium",
+    question: "How would you design a CI/CD pipeline for a multi-region deployment on AWS?",
+    why_this_question: "The role requires strong AWS knowledge and DevOps practices.",
+    expected_depth: "Cover CodePipeline, CodeBuild, blue-green deployments, canary releases, infrastructure as code (CloudFormation/Terraform), and cross-region replication strategies.",
+    follow_ups: [
+      "How would you handle secrets management?",
+      "What rollback strategy would you implement?",
+      "How would you ensure consistency across regions?"
+    ]
+  }
+];
+---
+
+<MarketingLayout title={`${title} - ${siteConfig.name}`} description={description}>
+  <section class="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-b from-background to-muted/20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Demo Controls */}
+      <div class="max-w-7xl mx-auto mb-8 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+        <p class="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+          📋 Demo Page: This page demonstrates the interview results display component with sample data
+        </p>
+      </div>
+
+      {/* Results Display */}
+      <InterviewResultsDisplay questions={sampleQuestions} client:load />
+      
+      {/* Loading State Demo */}
+      <div class="mt-12 max-w-7xl mx-auto">
+        <h3 class="text-xl font-semibold mb-4">Loading State:</h3>
+        <InterviewResultsDisplay isLoading={true} client:load />
+      </div>
+    </div>
+  </section>
+</MarketingLayout>

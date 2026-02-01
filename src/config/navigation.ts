@@ -23,7 +23,6 @@ export const navigation: Navigation = {
       { label: 'Interview Prep', href: '/interview-prep' },
       { label: 'Pricing', href: '/pricing' },
       { label: 'About', href: '/about' },
-      { label: 'Blog', href: '/blog', feature: 'blog' },
     ],
     cta: [
       { label: 'Login', href: '/login', variant: 'ghost' },
@@ -48,7 +47,6 @@ export const navigation: Navigation = {
       { label: 'Success Stories', href: '/testimonials', feature: 'testimonials' },
     ],
     resources: [
-      { label: 'Blog', href: '/blog', feature: 'blog' },
       { label: 'Changelog', href: '/changelog', feature: 'changelog' },
     ],
     company: [

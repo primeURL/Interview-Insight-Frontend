@@ -91,14 +91,25 @@ async function generateQuestions(formData: FormData): Promise<Question[]> {
   return questions;
 }
 
+interface InterviewPrepContainerProps {
+  onViewStateChange?: (state: ViewState) => void;
+}
+
 /**
  * Container component that manages API integration and state
  */
-export function InterviewPrepContainer() {
+export function InterviewPrepContainer({ onViewStateChange }: InterviewPrepContainerProps) {
   const [viewState, setViewState] = React.useState<ViewState>("form");
   const [questions, setQuestions] = React.useState<Question[]>([]);
   const [error, setError] = React.useState<ErrorDetails | null>(null);
   const [preservedInput, setPreservedInput] = React.useState<FormData | null>(null);
+
+  // Notify parent component when view state changes
+  React.useEffect(() => {
+    if (onViewStateChange) {
+      onViewStateChange(viewState);
+    }
+  }, [viewState, onViewStateChange]);
 
   const handleSubmit = async (formData: FormData) => {
     // Save input for potential retry
@@ -181,7 +192,7 @@ export function InterviewPrepContainer() {
           <div className="flex justify-center">
             <button
               onClick={handleNewSearch}
-              className="px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium"
+              className="px-6 py-3 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium shadow-lg hover:shadow-xl transition-all duration-200"
             >
               Generate New Questions
             </button>

@@ -2,19 +2,6 @@ import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
 import { glob } from 'astro/loaders';
 
-const blog = defineCollection({
-  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    publishedDate: z.coerce.date(),
-    author: z.string(),
-    image: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    draft: z.boolean().default(false),
-  }),
-});
-
 const docs = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/docs' }),
   schema: z.object({
@@ -51,4 +38,4 @@ const testimonials = defineCollection({
   }),
 });
 
-export const collections = { blog, docs, changelog, testimonials };
+export const collections = { docs, changelog, testimonials };

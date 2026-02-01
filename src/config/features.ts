@@ -11,7 +11,7 @@ import type { FeatureFlags } from '../lib/types';
 /** Feature flags to enable/disable site sections */
 export const features: FeatureFlags = {
   /** Enable blog section and /blog routes */
-  blog: true,
+  blog: false,
 
   /** Enable documentation section and /docs routes */
   docs: true,

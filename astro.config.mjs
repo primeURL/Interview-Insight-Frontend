@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import icon from 'astro-icon';
 import tailwindcss from '@tailwindcss/vite';
 import { siteConfig } from './src/config';
+import { fileURLToPath } from 'url';
 
 import react from '@astrojs/react';
 
@@ -46,5 +47,17 @@ export default defineConfig({
   }), react()],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: {
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
+        '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+        '@sections': fileURLToPath(new URL('./src/components/sections', import.meta.url)),
+        '@ui': fileURLToPath(new URL('./src/components/ui', import.meta.url)),
+        '@forms': fileURLToPath(new URL('./src/components/forms', import.meta.url)),
+        '@layout': fileURLToPath(new URL('./src/components/layout', import.meta.url)),
+        '@dashboard': fileURLToPath(new URL('./src/components/dashboard', import.meta.url)),
+        '@dashboard-ui': fileURLToPath(new URL('./src/components/dashboard-ui', import.meta.url)),
+      },
+    },
   },
 });
